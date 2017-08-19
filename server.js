@@ -6,20 +6,40 @@ var app = express();
 app.use(morgan('combined'));
 
 
-var Page1 = {
-  title: 'Page One | Siva',
-  heading: 'Page1',
-  date: 'August 19 2017',
-  content: `
-        <p>
-            Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck.
-        </p>
-        <p>
-            Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck.
-        </p>
-        <p>
-            Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck.
-        </p>`
+var pages = {
+  page1: {
+      title: 'Page One | Siva',
+      heading: 'Page1',
+      date: 'August 19 2017',
+      content: `
+            <p>
+                Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck.
+            </p>
+            <p>
+                Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck.
+            </p>
+            <p>
+                Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck. Page1 is hosted from the server Good Luck.
+            </p>`
+  },
+  page2: {
+      title: 'Page Two | Siva',
+      heading: 'Page2',
+      date: 'August 20 2017',
+      content: `
+            <p>
+                Page2 is hosted from the server Good Luck.
+            </p>`
+  },
+  page3: {
+      title: 'Page Three | Siva',
+      heading: 'Page3',
+      date: 'August 21 2017',
+      content: `
+            <p>
+                Page3 is hosted from the server Good Luck.
+            </p>`
+  }
 };
 
 function createTemplate (data){
@@ -29,50 +49,43 @@ function createTemplate (data){
     var content = data.content;
     
     var htmlTemplate = `
-    <html>
-        <head>
-            <title>
-                ${title}
-            </title>
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <link href="/ui/style.css" rel="stylesheet" />
-        </head>
-        <body>
-            <div class="container">
-                <div>
-                    <a href="/">Home</a>
+        <html>
+            <head>
+                <title>
+                    ${title}
+                </title>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link href="/ui/style.css" rel="stylesheet" />
+            </head>
+            <body>
+                <div class="container">
+                    <div>
+                        <a href="/">Home</a>
+                    </div>
+                    <hr/>
+                    <h3>
+                        ${heading}
+                    </h3>
+                    <div>
+                        ${date}
+                    </div>
+                    <div>
+                        ${content}
+                        </p>
+                    </div>
                 </div>
-                <hr/>
-                <h3>
-                    ${heading}
-                </h3>
-                <div>
-                    ${date}
-                </div>
-                <div>
-                    ${content}
-                    </p>
-                </div>
-            </div>
-        </body>
-    </html>
-    `;
+            </body>
+        </html>`;
     return htmlTemplate;
 }
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/page1', function (req, res) {
-  res.send(createTemplate(Page1));
-});
-
-app.get('/page2', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'page2.html'));
-});
-
-app.get('/page3', function (req,res) {
-  res.sendFile(path.join(__dirname, 'ui', 'page3.html')); 
+app.get('/:pagenum', function (req,res) {
+  var pageno = req.params.pagenum;
+  res.send(createTemplate(pages[pageno]));
 });
 
 app.get('/ui/style.css', function (req, res) {
