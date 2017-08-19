@@ -10,11 +10,16 @@ app.get('/', function (req, res) {
 });
 
 app.get('/page1', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
   res.send('Page1 requested and is hosted');
 });
 
+app.get('/page2', function (req, res) {
+   res.send('Page2 requested and is hosted') ;
+});
 
+app.get('/page3', function (req,res) {
+   res.send('page3 requested and is hosted'); 
+});
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
