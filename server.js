@@ -10,8 +10,8 @@ app.get('/', function (req, res) {
 });
 
 app.get('/page1', function (req, res) {
-  res.send('Page1 requested and is hosted');
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+  res.send('Page1 requested and is hosted');
 });
 
 
