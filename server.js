@@ -83,6 +83,12 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
+var counter = 0;
+app.get('/counter', function (req, res) {
+   counter = counter + 1; 
+   res.send(counter.toString());
+});
+
 app.get('/:pagenum', function (req,res) {
   var pageno = req.params.pagenum;
   res.send(createTemplate(pages[pageno]));
