@@ -11,4 +11,4 @@ button.onclick = function () {
     counter = counter + 1;
     var span = documnet.getElementById('count');
     span.innerHTML = counter.toString();
-}
+};
