@@ -123,7 +123,7 @@ app.get('/submit-name', function(req, res) { // /submit-name?name=xxxx
 
 app.get('/pages/:pagenum', function (req,res) {
   
-  pool.query("SELECT * FROM page WHERE title = '" + req.params.pagenum + "'", function(err,result){
+  pool.query("SELECT * FROM page WHERE heading = '" + req.params.pagenum + "'", function(err,result){
      if (err){
          res.status(500).send(err.toString());
      } else {
